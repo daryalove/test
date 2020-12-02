@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="TestImages\i7001144.jpg" />
+    <None Remove="TestImages\i70012.jpg" />
+    <None Remove="TestImages\i700121.jpg" />
+    <None Remove="TestImages\i7001247.jpg" />
+    <None Remove="TestImages\i70013.jpg" />
+    <None Remove="TestImages\i700228.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RopeDetection.Entities\RopeDetection.Entities.csproj" />
+    <ProjectReference Include="..\RopeDetection.Predict\RopeDetection.Predict.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="TestImages\i7001144.jpg" />
+    <Resource Include="TestImages\i70012.jpg" />
+    <Resource Include="TestImages\i700121.jpg" />
+    <Resource Include="TestImages\i7001247.jpg" />
+    <Resource Include="TestImages\i70013.jpg" />
+    <Resource Include="TestImages\i700228.jpg" />
+  </ItemGroup>
+
+</Project>

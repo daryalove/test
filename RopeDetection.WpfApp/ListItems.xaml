@@ -1,0 +1,34 @@
+﻿<Page x:Class="RopeDetection.WpfApp.ListItems"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:RopeDetection.WpfApp"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ListItems">
+
+    <Grid>
+        <TextBlock
+            VerticalAlignment="Top"
+            HorizontalAlignment="Center"
+            FontSize="23"
+            FontFamily="Times New Roman"
+            TextDecorations="Underline"
+            Text="Выбрите объект для анализа" 
+        />
+        <ListBox Margin="15,30,15,10" HorizontalContentAlignment="Center" Name="lst_img" SelectionChanged="ListBox_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Rows="2" Columns="3"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <Image Name="i7001144" Source="/TestImages/i7001144.jpg" Width="200"/>
+            <Image Name ="i70012" Source="/TestImages/i70012.jpg" Width="200"/>
+            <Image Name="i700121" Source="/TestImages/i700121.jpg" Width="200"/>
+            <Image Name="i7001247" Source="/TestImages/i7001247.jpg" Width="200"/>
+            <Image Name="i70013" Source="/TestImages/i70013.jpg" Width="200"/>
+            <Image Name="i700228" Source="/TestImages/i700228.jpg" Width="200"/>
+        </ListBox>
+    </Grid>
+</Page>

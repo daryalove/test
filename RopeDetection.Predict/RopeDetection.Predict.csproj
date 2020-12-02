@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="MLNETModel\" />
+    <Folder Include="prediction_images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RopeDetection.Shared\RopeDetection.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
