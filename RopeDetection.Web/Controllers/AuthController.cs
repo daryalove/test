@@ -32,7 +32,12 @@ namespace RopeDetection.Web.Controllers
             _appSettings = appSettings.Value;
         }
 
-       
+        /// <summary>
+        /// Авторизация пользователя
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="userPassword"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("LoginUser")]
         [AllowAnonymous]
@@ -90,6 +95,11 @@ namespace RopeDetection.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Регистрация пользователя
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("RegisterUser")]
         [AllowAnonymous]
@@ -106,6 +116,10 @@ namespace RopeDetection.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Выход из приложения
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("LogoutUser")]
         [Authorize]

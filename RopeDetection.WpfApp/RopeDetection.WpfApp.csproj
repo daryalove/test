@@ -28,12 +28,24 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="TestImages\i7001144.jpg" />
-    <Resource Include="TestImages\i70012.jpg" />
-    <Resource Include="TestImages\i700121.jpg" />
-    <Resource Include="TestImages\i7001247.jpg" />
-    <Resource Include="TestImages\i70013.jpg" />
-    <Resource Include="TestImages\i700228.jpg" />
+    <Resource Include="TestImages\i7001144.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="TestImages\i70012.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="TestImages\i700121.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="TestImages\i7001247.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="TestImages\i70013.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="TestImages\i700228.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

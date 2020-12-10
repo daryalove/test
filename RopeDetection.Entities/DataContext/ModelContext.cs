@@ -85,7 +85,7 @@ namespace RopeDetection.Entities.DataContext
             //.WithOne(ad => ad.AnalyzedObject)
             //.HasForeignKey<FileData>(ad => ad.ParentCode);
 
-            modelBuilder.Entity<FileData>().HasIndex(u => u.FileIndex).IsUnique();
+            //modelBuilder.Entity<FileData>().HasIndex(u => u.FileIndex).IsUnique();
             //modelBuilder.Entity<ModelObject>().OwnsOne(u => u.FileData);
 
             //modelBuilder.Entity<AnalysisHistory>().HasAlternateKey(p => new { p.UserId });

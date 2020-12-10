@@ -28,5 +28,21 @@ namespace RopeDetection.Entities.Models
                 db.SaveChanges();
             }
         }
+
+        public static FileData Create(Guid fileId, Guid parentCode, string fileName, string fileType, byte[] fileContent, Parent parentType, Guid userId, int fileIndex = 0)
+        {
+            var file = new FileData
+            {
+                Id = fileId,
+                FileContent = fileContent,
+                FileIndex = fileIndex,
+                FileName = fileName,
+                FileType = fileType,
+                ParentCode = parentCode,
+                ParentType = parentType,
+                UserId = userId
+            };
+            return file;
+        }
     }
 }

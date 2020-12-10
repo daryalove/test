@@ -48,7 +48,7 @@ namespace RopeDetection.Entities.Repository
         //Регистрация пользователя
         public async Task<User> RegisterUser(UserModel model, byte[] passwordHash, byte[] passwordSalt)
         {
-            var GetData = GetAsyncIQueryable(m => m.UserName.ToLower() == model.UserName.ToLower());
+            var GetData = GetAsyncIQueryable(m => m.Email.ToLower() == model.Email.ToLower());
             if (GetData.Count() != 0)
             {
                 throw new Exception("Пользователь с данным Email уже существует.");

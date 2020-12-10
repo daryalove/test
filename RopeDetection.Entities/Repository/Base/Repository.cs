@@ -79,6 +79,12 @@ namespace RopeDetection.Entities.Repository.Base
             return await query.ToListAsync();
         }
 
+        public async Task AddRangeAsync(ICollection<T> entities)
+        {
+            _dbContext.AddRange(entities);
+            await _dbContext.SaveChangesAsync();
+        }
+
 
         private IQueryable<T> BuildQuery(Expression<Func<T, bool>> predicate = null,
                     Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null)
@@ -109,6 +115,8 @@ namespace RopeDetection.Entities.Repository.Base
         {
             return await BuildQuery(predicate, orderBy).CountAsync();
         }
+
+
 
         public virtual async Task<T> GetByIdAsync(Guid id)
         {

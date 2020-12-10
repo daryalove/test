@@ -141,8 +141,11 @@ namespace RopeDetection.Train
 
             mlContext.Model.Save(trainedModel, trainSet.Schema, path);
 
+            string current_path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "model.zip");
+            mlContext.Model.Save(trainedModel, trainSet.Schema, current_path);
+
             //mlContext.Model.Save(mlModel, modelInputSchema, GetAbsolutePath(modelRelativePath));
-            Console.WriteLine("The model is saved to {0}", path);
+            Console.WriteLine("The model is saved to {0} and to {1}", path, current_path);
         }
 
         //public static string GetAbsolutePath(string relativePath)

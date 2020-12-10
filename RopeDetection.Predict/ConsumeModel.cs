@@ -38,7 +38,8 @@ namespace RopeDetection.Predict
             // Load model & create prediction engine
             //var imageClassifierZip = Path.Combine(Environment.CurrentDirectory, "MLNETModel", "imageClassifier.zip");
             //string modelPath = @"C:\Users\Дарья\AppData\Local\Temp\MLVSTools\MyFirstMachineLearningModelML\MyFirstMachineLearningModelML.Model\MLModel.zip";
-            ITransformer mlModel = mlContext.Model.Load(path, out var modelInputSchema);
+            string current_path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "model.zip");
+            ITransformer mlModel = mlContext.Model.Load(current_path, out var modelInputSchema);
             var predEngine = mlContext.Model.CreatePredictionEngine<ModelInput, ModelOutput>(mlModel);
 
             return predEngine;

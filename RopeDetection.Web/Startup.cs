@@ -116,6 +116,7 @@ namespace RopeDetection.Web
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IModelTypeRepository, ModelTypeRepository>();
             services.AddScoped<IModelRepository, ModelRepository>();
+            services.AddScoped<IModelObjectRepository, ModelObjectRepository>();
             //services.AddScoped<IFileDataRepository, FileDataRepository>();
             services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
 

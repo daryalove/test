@@ -150,9 +150,6 @@ namespace RopeDetection.Entities.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FileIndex")
-                        .IsUnique();
-
                     b.HasIndex("UserId");
 
                     b.ToTable("FileDatas");

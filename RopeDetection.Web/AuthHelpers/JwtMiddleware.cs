@@ -33,7 +33,7 @@ namespace RopeDetection.Web.AuthHelpers
             await _next(context);
         }
 
-        private async void attachUserToContext(HttpContext context, IAuthService userService, string token)
+        private void attachUserToContext(HttpContext context, IAuthService userService, string token)
         {
             try
             { 
@@ -60,9 +60,13 @@ namespace RopeDetection.Web.AuthHelpers
                 //var result = Guid.TryParse(context.User.Identity.Name, out userId);
                 //var user = await userService.GetUser(Guid.Parse("A403FBC2-766A-47CE-B2D5-19E3D1B77B31"));
                 //var userId = await userService.GetUserIdByUserName(context.User.Identity.Name);
-                var user = await userService.GetUser(userId);
+
+                //вызов асинхронной задачи, которая выполняется в отдельном потоке
+                var user = userService.GetUser(userId);
+
                 // attach user to context on successful jwt validation
-                context.Items["User"] = user;
+                //ожидание результата выполнения задачи
+                context.Items["User"] = user.Result;
                 context.Items["UserId"] = userId;
             }
             catch

@@ -1,4 +1,5 @@
-﻿using RopeDetection.CommonData.ViewModels.LabelViewModel;
+﻿using RopeDetection.CommonData.ViewModels.Base;
+using RopeDetection.CommonData.ViewModels.LabelViewModel;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,5 +11,6 @@ namespace RopeDetection.Services.Interfaces
     {
         Task<IEnumerable<LabelModel>> GetLabelList();
         Task<CreateModel> CreateModel(CreateModel model);
+        Task<BaseModel> LoadFilesForTraining(CreateFilesModel model);
     }
 }

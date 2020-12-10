@@ -27,7 +27,7 @@ namespace RopeDetection.WpfApp
 
         private void BtnRegistrationClick(object sender, RoutedEventArgs e)
         {
-            RegistrationPage registrationPage = new RegistrationPage();
+            ListItems registrationPage = new ListItems();
             this.NavigationService.Navigate(registrationPage);
         }
 
