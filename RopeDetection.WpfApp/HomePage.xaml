@@ -31,10 +31,10 @@
             Grid.ColumnSpan="2"
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
-            FontSize="38"
+            FontSize="30"
             Foreground="#767575"
             FontFamily="Times New Roman"
-            Text="-Выберите действие-" 
+            Text="-ТЕСТОВОЕ ПРИЛОЖЕНИЕ-" 
         />
 
         <GridSplitter 
@@ -62,7 +62,7 @@
             Grid.ColumnSpan="2"
             Background="#F97A70"
             Foreground="#FFFFFF"
-            Content="Регистрация"           
+            Content="Начать анализ"           
             FontSize="16"
             FontFamily="Times New Roman"
             Width="250" 
@@ -79,7 +79,7 @@
             Background="#F97A70"
             Foreground="#FFFFFF"
             FontSize="16"
-            Content="Вход"                      
+            Content="Выход"                      
             Width="250" 
             Height="58" 
             VerticalAlignment="Center" 

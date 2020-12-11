@@ -11,5 +11,6 @@ namespace RopeDetection.Entities.Repository.Interfaces
     public interface IModelRepository
     {
         Task<Model> CreateModel(CreateModel model);
+        Task<IReadOnlyList<Model>> GetModels();
     }
 }

@@ -87,6 +87,28 @@ namespace RopeDetection.Web.Controllers
         }
 
         /// <summary>
+        /// Получение списка всех моделей
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetModels")]
+        public async Task<IActionResult> GetModels()
+        {
+            try
+            {
+                var models = await _modelService.GetModels();
+                if (models == null)
+                    return NotFound(new { message = "Список моделей пуст!" });
+                else
+                    return Ok(models);
+            }
+            catch (Exception exp)
+            {
+                return BadRequest(new { message = exp.Message });
+            }
+        }
+
+        /// <summary>
         /// Загрузка файлов для обучения
         /// </summary>
         /// <param name="model"></param>

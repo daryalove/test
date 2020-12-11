@@ -33,8 +33,7 @@ namespace RopeDetection.WpfApp
 
         private void BtnLoginClick(object sender, RoutedEventArgs e)
         {
-            LoginPage loginPage = new LoginPage();
-            this.NavigationService.Navigate(loginPage);
+            Application.Current.Shutdown();
         }
     }
 }

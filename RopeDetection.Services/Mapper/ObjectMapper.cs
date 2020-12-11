@@ -44,6 +44,9 @@ namespace RopeDetection.Services.Mapper
             CreateMap<Model, CreateModel>()
                 .ReverseMap();
 
+            CreateMap<Model, ModelResponse>()
+                .ReverseMap();
+
             //  CreateMap<RatingRow, RatingRowModel>()
             //.ReverseMap();
 

@@ -63,6 +63,22 @@ namespace RopeDetection.Services.RopeService
             }
         }
 
+        //Получение списка моделей
+        public async Task<IEnumerable<ModelResponse>> GetModels()
+        {
+            try
+            {
+                var category = await _modelReporitory.GetModels();
+                var mapped = ObjectMapper.Mapper.Map<IEnumerable<ModelResponse>>(category);
+                return mapped;
+            }
+            catch (Exception exp)
+            {
+                _logger.LogWarning("Ошибка получения списка моделей", exp);
+                return new List<ModelResponse>();
+            }
+        }
+
         //загрузка файлов для обучения
         public async Task<BaseModel> LoadFilesForTraining(CreateFilesModel model)
         {

@@ -38,5 +38,11 @@ namespace RopeDetection.Entities.Repository
             var newEntity = await AddAsync(mappedEntity);
             return newEntity;
         }
+
+        public async Task<IReadOnlyList<Model>> GetModels()
+        {
+            var category = await GetAllAsync();
+            return category;
+        }
     }
 }
