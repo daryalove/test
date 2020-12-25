@@ -72,7 +72,7 @@ namespace RopeDetection.Entities.Repository
 
             //привязка модели
             trainig_model.ModelAndObjects = related_entities;
-            trainig_model.UpdateChangedOn();
+            trainig_model.UpdateChangedOn(false);
             await _dbContext.SaveChangesAsync();
         }
     }

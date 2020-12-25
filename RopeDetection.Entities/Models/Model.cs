@@ -38,9 +38,10 @@ namespace RopeDetection.Entities.Models
             }
         }
 
-        public void UpdateChangedOn()
+        public void UpdateChangedOn(bool status)
         {
             this.ChangedDate = DateTime.Now;
+            this.LearningStatus = status;
         }
     }
 }

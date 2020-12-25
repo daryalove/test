@@ -8,11 +8,6 @@ namespace RopeDetection.Entities.Models
 {
     public class ModelObject: EntityBase
     {
-        public ModelObject()
-        {
-            this.ModelObjectType = new ModelObjectType();
-        }
-
         public DateTime DownloadedDate { get; set; }
         public string Characteristic { get; set; }
         //public Guid ModelId { get; set; }

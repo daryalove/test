@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RopeDetection.Web.Models;
@@ -25,6 +22,8 @@ namespace RopeDetection.Web.Controllers
 
         public IActionResult Privacy()
         {
+            Console.WriteLine("Hello World!");
+            //ModelBuilder.CreateModel();
             return View();
         }
 

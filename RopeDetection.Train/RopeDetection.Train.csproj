@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="SharpZipLib" Version="1.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\RopeDetection.Shared\RopeDetection.Shared.csproj" />
   </ItemGroup>
 

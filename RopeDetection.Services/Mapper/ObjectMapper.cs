@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using RopeDetection.CommonData.ViewModels.FileViewModel;
 using RopeDetection.CommonData.ViewModels.LabelViewModel;
+using RopeDetection.CommonData.ViewModels.TrainViewModel;
 using RopeDetection.CommonData.ViewModels.UserViewModel;
 using RopeDetection.Entities.Models;
 using System;
@@ -47,6 +48,8 @@ namespace RopeDetection.Services.Mapper
             CreateMap<Model, ModelResponse>()
                 .ReverseMap();
 
+            CreateMap<AnalysisHistory, TrainResponse>()
+                .ReverseMap();
             //  CreateMap<RatingRow, RatingRowModel>()
             //.ReverseMap();
 

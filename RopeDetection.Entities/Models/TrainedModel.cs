@@ -34,14 +34,12 @@ namespace RopeDetection.Entities.Models
             }
         }
 
-        public void UpdatedChangedOn()
-        {
-            this.ChangedDate = DateTime.Now;
-        }
-
-        public void UpdatedProgressOn(TrainStatus newStatus)
+        public void UpdatedProgressOn(TrainStatus newStatus, string path, ModelType type)
         {
             this.LearningStatus = newStatus;
+            this.ZipPath = path;
+            this.Type = type;
+            this.ChangedDate = DateTime.Now;
         }
     }
 }

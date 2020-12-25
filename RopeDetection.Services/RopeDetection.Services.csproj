@@ -13,6 +13,8 @@
   <ItemGroup>
     <ProjectReference Include="..\RopeDetection.CommonData\RopeDetection.CommonData.csproj" />
     <ProjectReference Include="..\RopeDetection.Entities\RopeDetection.Entities.csproj" />
+    <ProjectReference Include="..\RopeDetection.Predict\RopeDetection.Predict.csproj" />
+    <ProjectReference Include="..\RopeDetection.Train\RopeDetection.Train.csproj" />
   </ItemGroup>
 
 </Project>

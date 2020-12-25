@@ -12,5 +12,7 @@ namespace RopeDetection.Entities.Repository.Interfaces
     {
         Task<Model> CreateModel(CreateModel model);
         Task<IReadOnlyList<Model>> GetModels();
+        Task<Model> UpdateModel(bool status);
+        Task<Model> GetModel(Guid id);
     }
 }

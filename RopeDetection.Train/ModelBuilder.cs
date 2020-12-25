@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using static Microsoft.ML.DataOperationsCatalog;
 
 namespace RopeDetection.Train
@@ -20,7 +21,8 @@ namespace RopeDetection.Train
 
         private static string modelDirectory = Path.GetFullPath(System.IO.Path.Combine(AppContext.BaseDirectory, "../../../../"));
         private static string path = System.IO.Path.Combine(modelDirectory, "RopeDetection.Predict", "MLNETModel", "model.zip");
-
+        public static string ModelPath = "";
+        
         private static IDataView testSet;
         private static ITransformer trainedModel;
         private static IDataView shuffledData;
@@ -29,64 +31,68 @@ namespace RopeDetection.Train
         //public static int LTP = 0;
         //private static string PathToImage = "7001-21";
 
-
-        public static void CreateModel()
+        public static void CreateModel(string modelId = null)
         {
-            // Load Data
-            // Получение списка изображений, используемых для обучения.
-            IEnumerable<ImageData> images = FileUtils.LoadImagesFromDirectory(folder: assetsRelativePath, useFolderNameAsLabel: true);
-
-            // Загрузка избражений в IDataView
-            IDataView imageData = mlContext.Data.LoadFromEnumerable(images);
-            var DataList = images.ToList();
-            // Данные загружаются в том порядке, в котором они были считаны из каталогов. 
-            //Чтобы сбалансировать данные, перемешайте их в случайном порядке с помощью метода ShuffleRows.
-            shuffledData = mlContext.Data.ShuffleRows(imageData);
-
-            // Build training pipeline
-            IEstimator<ITransformer> trainingPipeline = BuildTrainingPipeline(mlContext);
-
-            //Используем метод Fit, чтобы применить данные к preprocessingPipelineEstimatorChain,
-            //а затем метод Transform, который возвращает IDataView, содержащий предварительно обработанные данные.
-            IDataView preProcessedData = trainingPipeline
-                    .Fit(shuffledData)
-                    .Transform(shuffledData);
-
-            TrainTestData trainSplit = mlContext.Data.TrainTestSplit(data: preProcessedData, testFraction: 0.3);
-            TrainTestData validationTestSplit = mlContext.Data.TrainTestSplit(trainSplit.TestSet);
-
-            IDataView trainSet = trainSplit.TrainSet;
-            IDataView validationSet = validationTestSplit.TrainSet;
-            testSet = validationTestSplit.TestSet;
-
-            // Defining the learning pipeline
-            var classifierOptions = new ImageClassificationTrainer.Options()
+            try
             {
-                FeatureColumnName = "Image",
-                LabelColumnName = "LabelAsKey",
-                ValidationSet = validationSet,
-                Arch = ImageClassificationTrainer.Architecture.ResnetV2101,
-                MetricsCallback = (metrics) => Console.WriteLine(metrics),
-                TestOnTrainSet = false,
-                ReuseTrainSetBottleneckCachedValues = true,
-                ReuseValidationSetBottleneckCachedValues = true,
-                WorkspacePath = workspaceRelativePath,
+                // Получение списка изображений, используемых для обучения.
+                IEnumerable<ImageData> images = FileUtils.LoadImagesFromDirectory(folder: assetsRelativePath, useFolderNameAsLabel: true);
 
-            };
 
-            trainingPipeline = mlContext.MulticlassClassification.Trainers.ImageClassification(classifierOptions)
-    .Append(mlContext.Transforms.Conversion.MapKeyToValue("PredictedLabel"));
+                // Загрузка избражений в IDataView
+                IDataView imageData = mlContext.Data.LoadFromEnumerable(images);
+                var DataList = images.ToList();
+                // Данные загружаются в том порядке, в котором они были считаны из каталогов. 
+                //Чтобы сбалансировать данные, перемешайте их в случайном порядке с помощью метода ShuffleRows.
+                shuffledData = mlContext.Data.ShuffleRows(imageData);
 
-            // Train Model
-            trainedModel = TrainModel(trainingPipeline, trainSet);
+                // Build training pipeline
+                IEstimator<ITransformer> trainingPipeline = BuildTrainingPipeline(mlContext);
 
-            // Evaluate quality of Model
-            //Evaluate(mlContext, imageData, trainingPipeline);
+                //Используем метод Fit, чтобы применить данные к preprocessingPipelineEstimatorChain,
+                //а затем метод Transform, который возвращает IDataView, содержащий предварительно обработанные данные.
+                IDataView preProcessedData = trainingPipeline
+                        .Fit(shuffledData)
+                        .Transform(shuffledData);
 
-            // Save model
-            SaveModel(trainSet);
+                TrainTestData trainSplit = mlContext.Data.TrainTestSplit(data: preProcessedData, testFraction: 0.3);
+                TrainTestData validationTestSplit = mlContext.Data.TrainTestSplit(trainSplit.TestSet);
+
+                IDataView trainSet = trainSplit.TrainSet;
+                IDataView validationSet = validationTestSplit.TrainSet;
+                testSet = validationTestSplit.TestSet;
+
+                // Defining the learning pipeline
+                var classifierOptions = new ImageClassificationTrainer.Options()
+                {
+                    FeatureColumnName = "Image",
+                    LabelColumnName = "LabelAsKey",
+                    ValidationSet = validationSet,
+                    Arch = ImageClassificationTrainer.Architecture.ResnetV2101,
+                    MetricsCallback = (metrics) => Console.WriteLine(metrics),
+                    TestOnTrainSet = false,
+                    ReuseTrainSetBottleneckCachedValues = true,
+                    ReuseValidationSetBottleneckCachedValues = true,
+                    WorkspacePath = workspaceRelativePath,
+                };
+
+                trainingPipeline = mlContext.MulticlassClassification.Trainers.ImageClassification(classifierOptions)
+        .Append(mlContext.Transforms.Conversion.MapKeyToValue("PredictedLabel"));
+
+                // Train Model
+                trainedModel = TrainModel(trainingPipeline, trainSet);
+
+                // Evaluate quality of Model
+                //Evaluate(mlContext, imageData, trainingPipeline);
+
+                // Save model
+                SaveModel(trainSet, modelId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
-
 
         public static IEstimator<ITransformer> BuildTrainingPipeline(MLContext mlContext)
         {
@@ -99,6 +105,7 @@ namespace RopeDetection.Train
                 outputColumnName: "Image",
                 imageFolder: assetsRelativePath,
                 inputColumnName: "ImagePath"));
+
             //// Data process configuration with pipeline data transformations 
             //var dataProcessPipeline = mlContext.Transforms.Conversion.MapValueToKey("Sentiment", "Sentiment")
             //                          .Append(mlContext.Transforms.Categorical.OneHotEncoding(new[] { new InputOutputColumnPair("LoggedIn", "LoggedIn") }))
@@ -134,18 +141,23 @@ namespace RopeDetection.Train
             PrintMulticlassClassificationFoldsAverageMetrics(crossValidationResults);
         }
 
-        private static void SaveModel(IDataView trainSet)
+        private static void SaveModel(IDataView trainSet, string modelId)
         {
             // Save/persist the trained model to a .ZIP file
             Console.WriteLine($"=============== Saving the model  ===============");
 
             mlContext.Model.Save(trainedModel, trainSet.Schema, path);
 
-            string current_path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "model.zip");
-            mlContext.Model.Save(trainedModel, trainSet.Schema, current_path);
+            if (!string.IsNullOrEmpty(modelId))
+            {
+                ModelPath = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\files\trained_models", modelId + ".zip");
+                mlContext.Model.Save(trainedModel, trainSet.Schema, ModelPath);
+            }
+            //string modelName = (string.IsNullOrEmpty(modelId)) ? "model.zip" : modelId;
+            //string current_path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, modelName);
+            //mlContext.Model.Save(trainedModel, trainSet.Schema, current_path);
 
-            //mlContext.Model.Save(mlModel, modelInputSchema, GetAbsolutePath(modelRelativePath));
-            Console.WriteLine("The model is saved to {0} and to {1}", path, current_path);
+            Console.WriteLine("The model is saved to {0} ", path);
         }
 
         //public static string GetAbsolutePath(string relativePath)

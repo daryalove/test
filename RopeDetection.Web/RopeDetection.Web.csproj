@@ -17,4 +17,8 @@
     <ProjectReference Include="..\RopeDetection.Services\RopeDetection.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\files\trained_models\" />
+  </ItemGroup>
+
 </Project>

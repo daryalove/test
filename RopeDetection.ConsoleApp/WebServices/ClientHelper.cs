@@ -8,7 +8,7 @@ namespace RopeDetection.ConsoleApp.WebServices
 {
     public class ClientHelper
     {
-        public const string URL = "https://localhost:44379/api/";
+        public const string URL = "https://localhost:5001/api/";
 
         public static HttpClient GetClient()
         {
@@ -56,14 +56,13 @@ namespace RopeDetection.ConsoleApp.WebServices
             //    AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
             //};
 
-            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12 | System.Net.SecurityProtocolType.Tls11 | System.Net.SecurityProtocolType.Tls;
+            //System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12 | System.Net.SecurityProtocolType.Tls11 | System.Net.SecurityProtocolType.Tls;
             var authValue = new AuthenticationHeaderValue("Bearer", token);
 
             var client = new HttpClient()
             {
                 DefaultRequestHeaders = { Authorization = authValue },
-                BaseAddress = new Uri(URL),
-                Timeout = new TimeSpan(0, 5, 2)
+                BaseAddress = new Uri(URL)
                 //Set some other client defaults like timeout / BaseAddress
             };
 

@@ -115,13 +115,18 @@ namespace RopeDetection.Web
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IModelTypeRepository, ModelTypeRepository>();
+            services.AddScoped<IFileRepository, FileDataRepository>();
             services.AddScoped<IModelRepository, ModelRepository>();
+            services.AddScoped<IHistoryRepository, HistoryRepository>();
+            services.AddScoped<ITrainRepository, TrainRepository>();
             services.AddScoped<IModelObjectRepository, ModelObjectRepository>();
+            services.AddScoped<IAnalyzedObjectRepository, AnalyzedObjectRepository>();
             //services.AddScoped<IFileDataRepository, FileDataRepository>();
             services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
 
             // Add Application Layer
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<ITrainService, TrainService>();
             services.AddScoped<IModelService, ModelService>();
             //services.AddScoped<IFileDataService, FileDataService>();
 

@@ -39,10 +39,21 @@ namespace RopeDetection.Entities.Repository
             return newEntity;
         }
 
+        public async Task<Model> GetModel(Guid id)
+        {
+            var model = await GetByIdAsync(id);
+            return model;
+        }
+
         public async Task<IReadOnlyList<Model>> GetModels()
         {
             var category = await GetAllAsync();
             return category;
+        }
+
+        public Task<Model> UpdateModel(bool status)
+        {
+            throw new NotImplementedException();
         }
     }
 }

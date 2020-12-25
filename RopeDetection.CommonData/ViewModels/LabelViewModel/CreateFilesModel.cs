@@ -1,4 +1,5 @@
 ﻿using RopeDetection.CommonData.ViewModels.Base;
+using RopeDetection.CommonData.ViewModels.FileViewModel;
 using System;
 using System.Collections.Generic;
 using System.Text;

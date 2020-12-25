@@ -1,4 +1,6 @@
-﻿using RopeDetection.CommonData.ViewModels.LabelViewModel;
+﻿using RopeDetection.CommonData.ViewModels.FileViewModel;
+using RopeDetection.CommonData.ViewModels.LabelViewModel;
+using RopeDetection.CommonData.ViewModels.TrainViewModel;
 using RopeDetection.CommonData.ViewModels.UserViewModel;
 using RopeDetection.ConsoleApp.Services;
 using RopeDetection.ConsoleApp.WebServices;
@@ -13,7 +15,8 @@ namespace RopeDetection.ConsoleApp
     class Program
     {
         private static string projectDirectory = System.IO.Path.GetFullPath(System.IO.Path.Combine(AppContext.BaseDirectory, "../../../../"));
-        private static string testImageOneRelativePath = System.IO.Path.Combine(projectDirectory, "RopeDetection.WpfApp", "TestImages");
+        private static string testImageOneRelativePath = System.IO.Path.Combine(projectDirectory, "RopeDetection.WpfApp", "input");
+        private static string testImagePath = System.IO.Path.Combine(projectDirectory, "RopeDetection.WpfApp", "input", "test.jpg");
         //private static string testImageSecondRelativePath = System.IO.Path.Combine(projectDirectory, "RopeDetection.WpfApp", "TestImages", "i70012.png");
 
         static void Main(string[] args)
@@ -55,7 +58,8 @@ namespace RopeDetection.ConsoleApp
             Console.WriteLine("(3) Upload Files");
             Console.WriteLine("(4) Log Out Profile");
             Console.WriteLine("(5) Start Training");
-            Console.WriteLine("(6) Exit App");
+            Console.WriteLine("(6) Predict Image");
+            Console.WriteLine("(7) Exit App");
             Console.WriteLine("=====================");
             Console.Write("\r\nSelect an option: ");
             
@@ -94,11 +98,47 @@ namespace RopeDetection.ConsoleApp
                     }
                 case "6":
                     {
+                        Console.Clear();
+                        PredictImage();
+                        System.Threading.Thread.Sleep(30000);
+                        return true;
+                    }
+                case "7":
+                    {
                         return false;
                     }
                 default:
                     return true;
             }
+        }
+
+        private async static void PredictImage()
+        {
+            try
+            {
+                var file = File.ReadAllBytes(testImagePath);
+                PredictModel model = new PredictModel
+                {
+                    ModelId = Guid.Parse("505f6fe9-bc62-4546-ab4c-faea2a36a39a"),
+                    Image = new Shared.DataModels.ModelInput
+                    {
+                        Image = file
+                    }
+                };
+
+                using (var client = ClientHelper.GetClient(StaticUser.Token))
+                {
+                    ClassifyImageService.InitializeClient(client);
+                    var o_data = await ClassifyImageService.PredictSingleImage(model);
+
+                    //Console.WriteLine(o_data.PredictedLabel);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+           
         }
 
         private static void TrainModel()
@@ -137,8 +177,8 @@ searchOption: SearchOption.AllDirectories);
             CreateFilesModel model = new CreateFilesModel
             {
                 Files = files,
-                ModelId = Guid.Parse("6E873C5E-9EC9-4182-B112-98F86A76106A"),
-                TypeId = Guid.Parse("69FA14B0-4FEF-4495-B2E6-04158F6EA7C4")
+                ModelId = Guid.Parse("505f6fe9-bc62-4546-ab4c-faea2a36a39a"),
+                TypeId = Guid.Parse("E36A8880-1883-4BEE-9F10-F425CED49A8C")
             };
 
             using (var client = ClientHelper.GetClient(StaticUser.Token))
