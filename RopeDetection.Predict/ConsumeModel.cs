@@ -11,7 +11,7 @@ namespace RopeDetection.Predict
     public class ConsumeModel
     {
         private static string modelDirectory = Path.GetFullPath(System.IO.Path.Combine(AppContext.BaseDirectory, "../../../../"));
-        private static string path = System.IO.Path.Combine(modelDirectory, "RopeDetection.Predict", "MLNETModel", "model.zip");
+        private static string path = System.IO.Path.Combine(modelDirectory, "RopeDetection.Predict", "MLNETModel", "model2.zip");
         private static string trainedModelPath = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\files\trained_models", StaticModel.ModelId + ".zip");
 
         private static Lazy<PredictionEngine<ModelInput, ModelOutput>> PredictionEngine = new Lazy<PredictionEngine<ModelInput, ModelOutput>>(CreatePredictionEngine);
@@ -42,7 +42,7 @@ namespace RopeDetection.Predict
             //string modelPath = @"C:\Users\Дарья\AppData\Local\Temp\MLVSTools\MyFirstMachineLearningModelML\MyFirstMachineLearningModelML.Model\MLModel.zip";
             //string current_path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "model.zip");
             Console.WriteLine($"Loading model from: {trainedModelPath}");
-            ITransformer mlModel = mlContext.Model.Load(trainedModelPath, out var modelInputSchema);
+            ITransformer mlModel = mlContext.Model.Load(path, out var modelInputSchema);
             var predEngine = mlContext.Model.CreatePredictionEngine<ModelInput, ModelOutput>(mlModel);
 
             return predEngine;

@@ -7,12 +7,26 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="TestImages\d1.jpg" />
+    <None Remove="TestImages\d2.jpg" />
+    <None Remove="TestImages\d3.jpg" />
+    <None Remove="TestImages\d4.jpg" />
+    <None Remove="TestImages\d5.jpg" />
+    <None Remove="TestImages\d6.jpg" />
+    <None Remove="TestImages\dt1.jpg" />
+    <None Remove="TestImages\dt2.jpg" />
+    <None Remove="TestImages\dt3.jpg" />
     <None Remove="TestImages\i7001144.jpg" />
     <None Remove="TestImages\i70012.jpg" />
     <None Remove="TestImages\i700121.jpg" />
     <None Remove="TestImages\i7001247.jpg" />
     <None Remove="TestImages\i70013.jpg" />
     <None Remove="TestImages\i700228.jpg" />
+    <None Remove="TestImages\one1.jpg" />
+    <None Remove="TestImages\twice1.jpg" />
+    <None Remove="TestImages\u1.jpg" />
+    <None Remove="TestImages\u2.jpg" />
+    <None Remove="TestImages\u3.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,28 +42,52 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="TestImages\i7001144.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="TestImages\i70012.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="TestImages\i700121.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="TestImages\i7001247.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="TestImages\i70013.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="TestImages\i700228.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    <Folder Include="input\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="input\" />
+    <Resource Include="TestImages\d1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="TestImages\d2.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="TestImages\d3.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="TestImages\d4.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="TestImages\d5.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="TestImages\d6.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="TestImages\dt1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="TestImages\dt2.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="TestImages\dt3.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="TestImages\one1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="TestImages\twice1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="TestImages\u1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="TestImages\u2.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="TestImages\u3.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

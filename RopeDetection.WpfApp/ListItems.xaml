@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:RopeDetection.WpfApp"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="650" d:DesignWidth="900"
       Title="ListItems">
 
     <Grid>
@@ -20,15 +20,22 @@
         <ListBox Margin="15,30,15,10" HorizontalContentAlignment="Center" Name="lst_img" SelectionChanged="ListBox_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid Rows="2" Columns="3"/>
+                    <UniformGrid Rows="4" Columns="3"/>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
-            <Image Name="i7001144" Source="/TestImages/i7001144.jpg" Width="200"/>
-            <Image Name ="i70012" Source="/TestImages/i70012.jpg" Width="200"/>
-            <Image Name="i700121" Source="/TestImages/i700121.jpg" Width="200"/>
-            <Image Name="i7001247" Source="/TestImages/i7001247.jpg" Width="200"/>
-            <Image Name="i70013" Source="/TestImages/i70013.jpg" Width="200"/>
-            <Image Name="i700228" Source="/TestImages/i700228.jpg" Width="200"/>
+            <Image Name="d1" Source="/TestImages/d1.jpg" Width="200"/>
+            <Image Name ="d2" Source="/TestImages/d2.jpg" Width="200"/>
+            <Image Name="d3" Source="/TestImages/d3.jpg" Width="200"/>
+            <Image Name="u1" Source="/TestImages/u1.jpg" Width="200"/>
+            <Image Name="u2" Source="/TestImages/u2.jpg" Width="200"/>
+            <Image Name="u3" Source="/TestImages/u3.jpg" Width="200"/>
+            <Image Name="dt1" Source="/TestImages/dt1.jpg" Width="200"/>
+            <Image Name="dt2" Source="/TestImages/dt2.jpg" Width="200"/>
+            <Image Name="dt3" Source="/TestImages/dt3.jpg" Width="200"/>
+            <Image Name="twice1" Source="/TestImages/twice1.jpg" Width="200"/>
+            <Image Name="one1" Source="/TestImages/one1.jpg" Width="200"/>
+            <Image Name="d4" Source="/TestImages/d4.jpg" Width="200"/>
+            <Image Name="d5" Source="/TestImages/d5.jpg" Width="200"/>
         </ListBox>
     </Grid>
 </Page>

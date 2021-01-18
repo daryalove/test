@@ -20,7 +20,7 @@ namespace RopeDetection.Train
         private static string assetsRelativePath = System.IO.Path.Combine(projectDirectory, "RopeDetection.Train", "assets");
 
         private static string modelDirectory = Path.GetFullPath(System.IO.Path.Combine(AppContext.BaseDirectory, "../../../../"));
-        private static string path = System.IO.Path.Combine(modelDirectory, "RopeDetection.Predict", "MLNETModel", "model.zip");
+        private static string path = System.IO.Path.Combine(modelDirectory, "RopeDetection.Predict", "MLNETModel", "model2.zip");
         public static string ModelPath = "";
         
         private static IDataView testSet;

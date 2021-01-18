@@ -24,11 +24,14 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using RopeDetection.Entities.Models;
+using RopeDetection.CommonData.ViewModels.UserViewModel;
 
 namespace RopeDetection.Web
 {
     public class Startup
     {
+       
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -154,7 +157,7 @@ namespace RopeDetection.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ModelContext context)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ModelContext context, IAuthService auth)
         {
             context.Database.Migrate();
             BaseProjectContextSeed.SeedLabels(context);
@@ -192,6 +195,31 @@ namespace RopeDetection.Web
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            CreatePowerUser(auth).Wait();
+        }
+
+        private async Task CreatePowerUser(IAuthService authService)
+        {
+            try
+            {
+                var _user = await authService.GetUserByUserNameAsync(Configuration.GetSection("DefaultUser")["Login"]);
+
+                if (_user == null)
+                {
+                    UserModel model = new UserModel
+                    {
+                        Email = Configuration.GetSection("DefaultUser")["Login"],
+                        Password = Configuration.GetSection("DefaultUser")["Password"],
+                        UserFIO = Configuration.GetSection("DefaultUser")["FIO"]
+                    };
+                    await authService.Register(model);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("User Register Error: " + ex.Message);
+            }
         }
     }
 }
