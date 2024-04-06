@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using MathWorks.MATLAB.NET.Arrays;
+using Matlab.Calc;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -30,6 +32,16 @@ namespace RopeDetection.Web.Controllers
             _logger = logger;
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
             _appSettings = appSettings.Value;
+        }
+
+        [Route("Test")]
+        [HttpGet]
+        public IActionResult Test(int x, int y)
+        {
+            MathCalc math = new MathCalc();
+            int[] array = { 0, 0 };
+            var result = math.calc((MWArray)x, (MWArray)y);
+            return Ok(result.ToString());
         }
 
         /// <summary>

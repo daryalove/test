@@ -112,7 +112,7 @@ namespace RopeDetection.Services.RopeService
                     //History = beAddedEntry
                 };
 
-                var entry = await _historyRepository.CreateHistoryEntry(beAddedEntry, result);
+              //  var entry = await _historyRepository.CreateHistoryEntry(beAddedEntry, result);
                 _logger.LogInformation($"Model successfully analysed");
                 return prediction;
 

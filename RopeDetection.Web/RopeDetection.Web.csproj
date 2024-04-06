@@ -2,7 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>39752b56-ff5f-4862-84b1-2588eb34be0b</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\files\trained_models\B15A7D7C-5AF1-4681-8146-A04A8C99B26A.zip" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.10" />
@@ -18,7 +23,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\files\trained_models\" />
+    <None Include="wwwroot\files\trained_models\b15a7d7c-5af1-4681-8146-a04a8c99b26a.zip">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Calc">
+      <HintPath>..\..\..\..\..\..\NET compiled libraries\Matlab.Calc\for_redistribution_files_only\Calc.dll</HintPath>
+    </Reference>
+    <Reference Include="MWArray">
+      <HintPath>..\..\..\..\..\..\Program Files\MATLAB\R2018b\toolbox\dotnetbuilder\bin\win64\v4.0\MWArray.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
