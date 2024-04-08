@@ -13,5 +13,6 @@ namespace RopeDetection.Services.Interfaces
         Task<CreateModel> CreateModel(CreateModel model);
         Task<BaseModel> LoadFilesForTraining(CreateFilesModel model);
         Task<IEnumerable<ModelResponse>> GetModels();
+        Task<ModelResponse> GetActualModel();
     }
 }

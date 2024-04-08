@@ -2,7 +2,6 @@
 using RopeDetection.Entities.Models.Base;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using static RopeDetection.CommonData.ModelEnums;
 
 namespace RopeDetection.Entities.Models
@@ -20,6 +19,7 @@ namespace RopeDetection.Entities.Models
         public DateTime CreatedDate { get; set; }
         public DateTime ChangedDate { get; set; }
         public string ZipPath { get; set; }
+        public string LabelPath { get; set; }
         public TrainStatus LearningStatus { get; set; }
 
         public List<AnalyzedObject> AnalyzedObjects { get; set; }
@@ -40,6 +40,12 @@ namespace RopeDetection.Entities.Models
             this.ZipPath = path;
             this.Type = type;
             this.ChangedDate = DateTime.Now;
+        }
+
+        public void UpdateLabeledOn(string labelPath)
+        {
+            LearningStatus = TrainStatus.Labeling;
+            LabelPath = labelPath;
         }
     }
 }

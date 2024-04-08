@@ -46,6 +46,7 @@ namespace RopeDetection.Services.Mapper
                 .ReverseMap();
 
             CreateMap<Model, ModelResponse>()
+                .ForMember(dest => dest.LabelPath, opt => opt.MapFrom(src => src.TrainedModel == null ? string.Empty : src.TrainedModel.LabelPath))
                 .ReverseMap();
 
             CreateMap<AnalysisHistory, TrainResponse>()

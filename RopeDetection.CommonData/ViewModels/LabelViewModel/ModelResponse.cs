@@ -11,5 +11,6 @@ namespace RopeDetection.CommonData.ViewModels.LabelViewModel
         public string Name { get; set; }
         public ModelType Type { get; set; }
         public bool LearningStatus { get; set; }
+        public string LabelPath { get; set; }
     }
 }

@@ -45,6 +45,13 @@ namespace RopeDetection.Entities.Repository
             return model;
         }
 
+        public async Task<Model> GetActualModel()
+        {
+            var models = await GetAsync(x => !x.LearningStatus, x => x.OrderBy(x => x.CreatedDate), "Model.TrainedModel", true);
+
+            return models.LastOrDefault();
+        }
+
         public async Task<IReadOnlyList<Model>> GetModels()
         {
             var category = await GetAllAsync();

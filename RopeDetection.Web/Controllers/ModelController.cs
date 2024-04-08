@@ -109,6 +109,19 @@ namespace RopeDetection.Web.Controllers
         }
 
         /// <summary>
+        /// Получение актуальной модели
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetActualModel")]
+        public async Task<IActionResult> GetActualModel()
+        {
+            var model = await _modelService.GetActualModel();
+
+            return Ok(model);
+        }
+
+        /// <summary>
         /// Загрузка файлов для обучения
         /// </summary>
         /// <param name="model"></param>

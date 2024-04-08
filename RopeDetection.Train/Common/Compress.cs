@@ -81,7 +81,44 @@ namespace RopeDetection.Train.Common
             {
                 return false;
             }
-            
+        }
+
+        /// <summary>
+        /// Сохранение файлов для обучения
+        /// </summary>
+        /// <param name="zipItems"></param>
+        public static bool SaveFilesInFolder(IEnumerable<ImageByteContent> zipItems, string assetsPath)
+        {
+            try
+            {
+                //Delete all files in a directory    
+                string[] dirs = Directory.GetDirectories(assetsPath);
+                foreach (string dir in dirs)
+                {
+                    Directory.Delete(dir, true);
+                    Console.WriteLine($"{dir} is deleted.");
+                }
+
+                //Empty workspace
+                Directory.Delete(assetsPath, true);
+                Directory.CreateDirectory(assetsPath);
+
+                //Save files in directory
+                foreach (var zipItem in zipItems)
+                {
+                    var path = Path.Combine(assetsPath, zipItem.Label, zipItem.ImageName);
+                    System.IO.DirectoryInfo directory = new System.IO.DirectoryInfo(Path.Combine(assetsPath, zipItem.Label));
+                    if (!directory.Exists)
+                        directory.Create();
+
+                    File.WriteAllBytes(path, zipItem.ImageContent);
+                }
+                return true;
+            }
+            catch (Exception exp)
+            {
+                return false;
+            }
         }
 
         /// <summary>

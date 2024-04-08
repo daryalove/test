@@ -12,5 +12,7 @@ namespace RopeDetection.Services.Interfaces
     {
         Task<TrainResponse> TrainModel(Guid modelId, Guid userId);
         Task<ModelOutput> Predict(PredictModel modelToPredict);
+
+        Task PrepareWorkspace(Guid modelId, string assetsPath);
     }
 }

@@ -79,6 +79,13 @@ namespace RopeDetection.Services.RopeService
             }
         }
 
+        public async Task<ModelResponse> GetActualModel()
+        {
+            var model = await _modelReporitory.GetActualModel();
+            var mapped = ObjectMapper.Mapper.Map<ModelResponse>(model);
+            return mapped;
+        }
+
         //загрузка файлов для обучения
         public async Task<BaseModel> LoadFilesForTraining(CreateFilesModel model)
         {

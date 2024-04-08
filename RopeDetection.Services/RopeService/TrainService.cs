@@ -43,6 +43,19 @@ namespace RopeDetection.Services.RopeService
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
+        /// подготовка рабочего пространства
+        public async Task PrepareWorkspace(Guid modelId, string assetsPath)
+        {
+            var files = await _fileRepository.GetFilesContentForTraining(modelId);
+            if (files == null)
+                throw new Exception("Для обучения модели просьба загрузить файлы.");
+
+            //сохранение файлов в определенную папку для обучения
+            var compressResult = Compress.SaveFilesInFolder(files, assetsPath);
+            if (compressResult != true)
+                throw new Exception("Произошла ошибка записи файлов.");
+        }
+
         //анализ изображения
         public async Task<ModelOutput> Predict(PredictModel modelToPredict)
         {
