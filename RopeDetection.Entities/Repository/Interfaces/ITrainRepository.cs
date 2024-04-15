@@ -7,5 +7,7 @@ namespace RopeDetection.Entities.Repository.Interfaces
     public interface ITrainRepository: IRepository<TrainedModel>
     {
         Task<TrainedModel> UpdateTrainedModelAsync(Guid modelId, string path, CommonData.ModelEnums.ModelType type);
+
+        Task<TrainedModel> UpdateLabel(Guid modelId, string labelPath);
     }
 }

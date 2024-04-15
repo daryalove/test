@@ -30,20 +30,63 @@ namespace RopeDetection.Web.Controllers
         }
 
         /// <summary>
-        /// Сохранение модели
+        /// Сохранение модели с размечанными изображениями
         /// </summary>
-        [HttpPost]
-        [Route("SaveModel")]
-        public async Task<IActionResult> SaveModel(Guid modelId)
+        /// <param name="modelId">ИД модели</param>
+        /// <param name="path">Путь к модели</param>
+        [HttpPut]
+        [Route("SaveLabel")]
+        public async Task<IActionResult> SaveLabel(Guid modelId, string path)
+        {
+            try
+            {
+                await _trainService.SaveLabel(modelId, path);
+                return Ok();
+            }
+            catch (Exception exp)
+            {
+                return BadRequest(new { message = exp.Message });
+            }
+        }
+
+        /// <summary>
+        /// Сохранение результатов обучения
+        /// </summary>
+        /// <param name="modelId">ИД модели</param>
+        /// <param name="zipPath">Путь к модели</param>
+        /// <param name="trainTime">Продолжительность обучения</param>
+        [HttpPut]
+        [Route("SaveDetector")]
+        public async Task<IActionResult> SaveDetector(Guid modelId, string zipPath, string trainTime)
         {
             try
             {
                 var userId = getUserId();
-                if (userId == Guid.Empty)
-                    return NotFound(new { message = "Такого пользователя нет в базе данных!" });
+                var response = await _trainService.SaveDetector(modelId, userId, zipPath, trainTime);
+                return Ok(response);
+            }
+            catch (Exception exp)
+            {
+                return BadRequest(new { message = exp.Message });
+            }
+        }
 
-                var result = await _trainService.TrainModel(modelId, userId);
-                return Ok(result);
+        /// <summary>
+        /// Сохранение результатов распознавания
+        /// </summary>
+        /// <param name="modelId">ИД модели</param>
+        /// <param name="maxScore">Оценка модели</param>
+        /// <param name="fileId">ИД файла</param>
+        /// <param name="predictedLabel">Предсказанное значение</param>
+        [HttpPost]
+        [Route("SavePrediction")]
+        public async Task<IActionResult> SavePrediction(Guid modelId, int maxScore, Guid fileId, string predictedLabel)
+        {
+            try
+            {
+                var userId = getUserId();
+                await _trainService.SavePrediction(modelId, userId, maxScore, fileId, predictedLabel);
+                return Ok();
             }
             catch (Exception exp)
             {

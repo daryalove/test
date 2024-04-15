@@ -1,5 +1,4 @@
-﻿using Microsoft.ML.Data;
-using RopeDetection.CommonData.ViewModels.Base;
+﻿using RopeDetection.CommonData.ViewModels.Base;
 using RopeDetection.CommonData.ViewModels.TrainViewModel;
 using RopeDetection.Entities.Models;
 using RopeDetection.Entities.Repository.Interfaces;
@@ -11,12 +10,10 @@ using RopeDetection.Shared.DataModels;
 using RopeDetection.Train;
 using RopeDetection.Train.Common;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Tensorflow;
 
 namespace RopeDetection.Services.RopeService
 {
@@ -54,6 +51,87 @@ namespace RopeDetection.Services.RopeService
             var compressResult = Compress.SaveFilesInFolder(files, assetsPath);
             if (compressResult != true)
                 throw new Exception("Произошла ошибка записи файлов.");
+        }
+
+        /// сохранение модели размеченных изображений
+        public async Task SaveLabel(Guid modelId, string labelPath)
+        {
+            await _trainRepository.UpdateLabel(modelId, labelPath);
+        }
+
+        /// сохранение результатов предсказания
+        public async Task SavePrediction(Guid modelId, Guid userId, int maxScore, Guid fileId, string predictedLabel)
+        {
+            AnalysisHistory beAddedEntry = new AnalysisHistory
+            {
+                DetectionType = CommonData.ModelEnums.DetectionType.Analysis,
+                FinishedDate = DateTime.Now,
+                StartedDate = startedDate,
+                AnalysisResult = CommonData.DefaultEnums.Result.OK,
+                Message = "Изображение успешно проанализировано.",
+                ModelId = modelId,
+                UserId = userId
+            };
+
+            AnalysisResult result = new AnalysisResult
+            {
+                MaxScore = maxScore,
+                DownloadDate = DateTime.Now,
+                Characteristic = "",
+                FileId = fileId,
+                Label = "ROPE_WIRE",
+                PredictedValue = predictedLabel,
+                HistoryId = beAddedEntry.Id,
+                History = beAddedEntry
+            };
+
+            var entry = await _historyRepository.CreateHistoryEntry(beAddedEntry, result);
+            _logger.LogInformation($"Model successfully analysed");
+        }
+
+        /// сохранение результатов обучения
+        public async Task<TrainResponse> SaveDetector(Guid modelId, Guid userId, string zipPath, string trainTime)
+        {
+            try
+            {
+                var trainResult = await _trainRepository.UpdateTrainedModelAsync(modelId, zipPath, CommonData.ModelEnums.ModelType.ObjectDetection);
+
+                AnalysisHistory beAddedEntry = new AnalysisHistory
+                {
+                    DetectionType = CommonData.ModelEnums.DetectionType.Training,
+                    FinishedDate = DateTime.Now,
+                    StartedDate = startedDate,
+                    AnalysisResult = CommonData.DefaultEnums.Result.OK,
+                    Message = "Модель успешно обучена.",
+                    ModelId = modelId,
+                    UserId = userId
+                };
+
+                var entry = await _historyRepository.CreateHistoryEntry(beAddedEntry);
+                _logger.LogInformation($"Model successfully trained");
+                var mapped = ObjectMapper.Mapper.Map<TrainResponse>(entry);
+                mapped.TrainTime = trainTime;
+                mapped.SuccessInfo = entry.Message;
+                return mapped;
+            }
+            catch (Exception exp)
+            {
+                AnalysisHistory beAddedEntry = new AnalysisHistory
+                {
+                    DetectionType = CommonData.ModelEnums.DetectionType.Training,
+                    FinishedDate = DateTime.Now,
+                    StartedDate = startedDate,
+                    AnalysisResult = CommonData.DefaultEnums.Result.Error,
+                    Message = exp.Message,
+                    ModelId = modelId,
+                    UserId = userId
+                };
+
+                var category = await _historyRepository.CreateHistoryEntry(beAddedEntry);
+                _logger.LogWarning("Ошибка обучения ", exp);
+                var mapped = ObjectMapper.Mapper.Map<TrainResponse>(category);
+                return mapped;
+            }
         }
 
         //анализ изображения
@@ -228,9 +306,9 @@ namespace RopeDetection.Services.RopeService
                     UserId = userId
                 };
 
-                var category = await _historyRepository.CreateHistoryEntry(beAddedEntry);
+                var history = await _historyRepository.CreateHistoryEntry(beAddedEntry);
                 _logger.LogWarning("Ошибка обучения ", exp);
-                var mapped = ObjectMapper.Mapper.Map<TrainResponse>(category);
+                var mapped = ObjectMapper.Mapper.Map<TrainResponse>(history);
                 return mapped;
             }
         }
