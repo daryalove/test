@@ -60,8 +60,22 @@ namespace RopeDetection.Services.RopeService
         }
 
         /// сохранение результатов предсказания
-        public async Task SavePrediction(Guid modelId, Guid userId, int maxScore, Guid fileId, string predictedLabel)
+        public async Task SavePrediction(Guid modelId, Guid userId, int maxScore, string filePath, string predictedLabel)
         {
+            var modelToPredict = new PredictModel
+            {
+                Image = new ModelInput
+                {
+                    Image = System.IO.File.ReadAllBytes(filePath),
+                    ImagePath = filePath,
+                    Label = "UD"
+                },
+                ModelId = modelId,
+                UserId = userId,
+            };
+
+            var file = await _analysisRepository.LoadSingleFileForPredictAsync(modelToPredict);
+
             AnalysisHistory beAddedEntry = new AnalysisHistory
             {
                 DetectionType = CommonData.ModelEnums.DetectionType.Analysis,
@@ -78,7 +92,7 @@ namespace RopeDetection.Services.RopeService
                 MaxScore = maxScore,
                 DownloadDate = DateTime.Now,
                 Characteristic = "",
-                FileId = fileId,
+                FileId = file.Id,
                 Label = "ROPE_WIRE",
                 PredictedValue = predictedLabel,
                 HistoryId = beAddedEntry.Id,

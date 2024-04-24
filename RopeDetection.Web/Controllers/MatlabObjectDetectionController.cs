@@ -76,16 +76,16 @@ namespace RopeDetection.Web.Controllers
         /// </summary>
         /// <param name="modelId">ИД модели</param>
         /// <param name="maxScore">Оценка модели</param>
-        /// <param name="fileId">ИД файла</param>
+        /// <param name="filePath">Полный путь файла</param>
         /// <param name="predictedLabel">Предсказанное значение</param>
         [HttpPost]
         [Route("SavePrediction")]
-        public async Task<IActionResult> SavePrediction(Guid modelId, int maxScore, Guid fileId, string predictedLabel)
+        public async Task<IActionResult> SavePrediction(Guid modelId, int maxScore, string filePath, string predictedLabel)
         {
             try
             {
                 var userId = getUserId();
-                await _trainService.SavePrediction(modelId, userId, maxScore, fileId, predictedLabel);
+                await _trainService.SavePrediction(modelId, userId, maxScore, filePath, predictedLabel);
                 return Ok();
             }
             catch (Exception exp)

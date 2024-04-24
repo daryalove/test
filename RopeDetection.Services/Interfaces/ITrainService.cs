@@ -12,6 +12,6 @@ namespace RopeDetection.Services.Interfaces
         Task PrepareWorkspace(Guid modelId, string assetsPath);
         Task SaveLabel(Guid modelId, string labelPath);
         Task<TrainResponse> SaveDetector(Guid modelId, Guid userId, string zipPath, string trainTime);
-        Task SavePrediction(Guid modelId, Guid userId, int maxScore, Guid fileId, string predictedLabel);
+        Task SavePrediction(Guid modelId, Guid userId, int maxScore, string filePath, string predictedLabel);
     }
 }
